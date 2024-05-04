@@ -26,3 +26,8 @@ check_untyped_defs = true
 warn_redundant_casts = true
 no_implicit_optional = true
 strict_optional = true
+exclude = [
+    'manage',
+    'settings',
+    'venv/'
+]
