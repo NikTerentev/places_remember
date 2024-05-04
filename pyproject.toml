@@ -1,0 +1,28 @@
+[tool.black]
+line-length = 79
+target-version = ['py311']
+exclude = '''
+/(
+  | migrations
+  | .git
+  | mypy_cache
+  | venv
+  | tests
+)/
+'''
+
+[tool.isort]
+profile="black"
+line_length = 79
+include_trailing_comma = true
+lines_after_imports = 2
+skip = "__init__.py"
+skip_glob = ["**/migrations/*", "**/settings/*"]
+
+[tool.mypy]
+ignore_missing_imports = true
+disallow_untyped_defs = true
+check_untyped_defs = true
+warn_redundant_casts = true
+no_implicit_optional = true
+strict_optional = true
