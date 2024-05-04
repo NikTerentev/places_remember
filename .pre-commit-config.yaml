@@ -11,7 +11,7 @@ repos:
     rev: 5.13.2
     hooks:
       - id: isort
-        args: [ --filter-files ]
+        args: [ --filter-files, src/ ]
   - repo: https://github.com/psf/black
     rev: 24.4.2
     hooks:
