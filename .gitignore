@@ -122,3 +122,4 @@ media/
 # !**/migrations
 # !**/migrations/__init__.py
 
+placesremember/uwsgi_app.sock

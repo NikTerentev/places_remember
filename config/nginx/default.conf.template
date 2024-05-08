@@ -1,0 +1,30 @@
+# входной поток для uWSGI
+upstream uwsgi_app {
+    server unix:/code/placesremember/uwsgi_app.sock;
+}
+
+server {
+    listen 80;
+    server_name www.placesremember.com placesremember.com;
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl;
+    ssl_certificate /code/placesremember/ssl/placesremember.crt;
+    ssl_certificate_key /code/placesremember/ssl/placesremember.key;
+    server_name www.placesremember.com placesremember.com;
+    error_log   stderr warn;
+    access_log  /dev/stdout main;
+    location / {
+        include /etc/nginx/uwsgi_params;
+        uwsgi_pass uwsgi_app;
+    }
+
+    location /static/ {
+        alias /code/placesremember/static/;
+    }
+    location /media/ {
+        alias /code/placesremember/media/;
+    }
+}

@@ -3,6 +3,7 @@ version: "3.9"
 services:
   placesdb:
     image: postgres:16.2
+    restart: always
     container_name: placesdb
     volumes:
       - ~/.pg/pg_data/pr:/var/lib/postgresql/data
@@ -12,9 +13,25 @@ services:
     container_name: places_remember_django
     depends_on:
       - placesdb
-    ports:
-      - "8000:8000"
     env_file:
       - .env
+    extra_hosts:
+      - "placesremember.com:127.0.0.1"
+    restart:
+      always
+    volumes:
+      - .:/code
     command: >
-      bash -c "./manage.py migrate && ./manage.py runserver 0.0.0.0:8000"
+      bash -c "./placesremember/manage.py makemigrations
+      && ./placesremember/manage.py migrate
+      && ./placesremember/manage.py add_admin
+      && ./wait-for-it.sh placesdb:5432 -- uwsgi --ini ./config/uwsgi/uwsgi.ini"
+  nginx:
+    image: nginx:1.26.0
+    restart: always
+    volumes:
+      - ./config/nginx:/etc/nginx/templates
+      - .:/code
+    ports:
+      - "80:80"
+      - "443:443"

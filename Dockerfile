@@ -18,11 +18,15 @@ RUN useradd -rms /bin/bash mainuser && chmod 777 /opt /run
 # create directory
 WORKDIR /code
 
-# copy the project files to the image directory
-COPY --chown=mainuser:mainuser . .
-
+RUN pip install --upgrade pip
+COPY requirements.txt /code/
 # install all dependencies for pip
 RUN pip install -r requirements.txt
+
+# copy the project files to the image directory
+COPY --chown=mainuser:mainuser . /code/
+
+RUN chmod -R 777 /code
 
 # switch to the created user
 USER mainuser
@@ -31,4 +35,4 @@ USER mainuser
 EXPOSE 8000
 
 # start the server
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+# CMD ["python", "manage.py", "runserver_plus", "--cert-file", "cert.crt", "0.0.0.0:8000"]
