@@ -29,4 +29,4 @@ jobs:
     - name: Run isort
       run: isort --filter-files .
     - name: Run Mypy
-      run: mypy --config-file=placesremember/pyproject.toml --package-root placesremember/
+      run: mypy --config-file=placesremember/pyproject.toml --package-root placesremember/ .
