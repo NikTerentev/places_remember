@@ -1,5 +1,9 @@
+from django.contrib.auth import views as auth_views
 from django.urls import path
 
-from .views import hello_page
+from .views import remember_list
 
-urlpatterns = [path("", hello_page, name="hello-page")]
+urlpatterns = [
+    path("remembers/", remember_list, name="remember-list"),
+    path("logout/", auth_views.LogoutView.as_view(), name="logout"),
+]

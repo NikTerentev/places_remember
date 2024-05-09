@@ -1,0 +1,17 @@
+{% extends "rememberapp/_base.html" %}
+
+{% block title %}
+    Список воспоминаний
+{% endblock title %}
+
+{% block content %}
+    У вас ещё нет воспоминаний.
+    <form method="POST" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit"
+                class="btn btn-primary text-white w-50 mb-60 mx-auto d-block">
+            <i class="fas fa-sign-out-alt font-bold"></i> Выйти
+        </button>
+    </form>
+
+{% endblock content %}

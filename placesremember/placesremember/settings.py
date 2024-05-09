@@ -20,9 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = (
-    "django-insecure-o(@8!3(0q@l$rw921@we$3!t8(sep#u6$-&$cw)7x2x+(ewhpg"
-)
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -41,6 +39,7 @@ INSTALLED_APPS = [
     "social_django",
     "django_extensions",
     "rememberapp",
+    "accounts",
 ]
 
 MIDDLEWARE = [
@@ -115,6 +114,7 @@ SOCIAL_AUTH_PIPELINE = [
     "social_core.pipeline.social_auth.associate_user",
     "social_core.pipeline.social_auth.load_extra_data",
     "social_core.pipeline.user.user_details",
+    "accounts.pipeline.get_avatar",
 ]
 
 # Authentication
@@ -127,7 +127,8 @@ AUTHENTICATION_BACKENDS = (
 SOCIAL_AUTH_URL_NAMESPACE = "social"
 
 SOCIAL_AUTH_VK_OAUTH2_KEY = 51918330
-SOCIAL_AUTH_VK_OAUTH2_SECRET = "d5chXvqUAoDAMbjRPTnj"
+SOCIAL_AUTH_VK_OAUTH2_SECRET = os.getenv("VK_OAUTH2_SECRET")
+SOCIAL_AUTH_VK_OAUTH2_SCOPE = ["photos"]
 
 # Security
 CSRF_COOKIE_SECURE = True
@@ -149,7 +150,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = "static/"
-STATIC_ROOT = BASE_DIR / "static"
+STATIC_ROOT = str(BASE_DIR.joinpath("static"))
 MEDIA_URL = "media/"
 MEDIA_ROOT = str(BASE_DIR.joinpath("media"))
 
@@ -158,4 +159,7 @@ MEDIA_ROOT = str(BASE_DIR.joinpath("media"))
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-LOGIN_REDIRECT_URL = "/"
+LOGIN_REDIRECT_URL = "/remembers"
+LOGIN_URL = "/"
+
+LOGOUT_REDIRECT_URL = "/"
