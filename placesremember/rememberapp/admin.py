@@ -1,3 +1,7 @@
 # from django.contrib import admin
 
-# Register your models here.
+# from .models import Remember
+
+# @admin.register(Remember)
+# class RememberAdmin(admin.ModelAdmin):
+#    pass

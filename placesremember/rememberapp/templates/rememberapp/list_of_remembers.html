@@ -1,0 +1,28 @@
+{% extends "rememberapp/_base.html" %}
+
+{% block title %}
+    Список воспоминаний
+{% endblock title %}
+
+{% block content %}
+    <div class="d-flex flex-column align-items-center vh-100">
+        <div class="d-flex justify-content-end w-100">
+            <form method="POST" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit"
+                        class="btn btn-primary text-white mb-60">
+                    <i class="fas fa-sign-out-alt font-bold"></i> Выйти из
+                    аккаунта
+                </button>
+            </form>
+        </div>
+        <h1 class="display-4 text-center text-primary text-white font-bold my-4 mb-12">
+            У вас ещё нет воспоминаний.</h1>
+        <button class="btn btn-success my-10"
+                onclick="location.href='{% url 'add-new-remember' %}'">Добавить
+            воспоминание
+        </button>
+
+    </div>
+{% endblock content %}
+

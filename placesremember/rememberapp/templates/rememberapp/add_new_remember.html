@@ -1,0 +1,30 @@
+{% extends "rememberapp/_base.html" %}
+
+{% block title %}
+    Добавление нового воспоминания
+{% endblock title %}
+
+{% block content %}
+    <script src="https://cdn.jsdelivr.net/npm/ol@v9.1.0/dist/ol.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v9.1.0/ol.css">
+
+    <div id="map"></div>
+    <script>
+        const map = new ol.Map({
+            layers: [
+                new ol.layer.Tile({
+                    source: new ol.source.TileJSON({
+                        url: 'https://api.maptiler.com/maps/basic-v2/tiles.json?key=qlW79kg1HzLzXulSEUn0',
+                        tileSize: 512,
+                    })
+                })
+            ],
+            target: 'map',
+            view: new ol.View({
+                center: [0, 0],
+                zoom: 2,
+            })
+        })
+    </script>
+
+{% endblock content %}

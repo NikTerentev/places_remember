@@ -1,4 +1,5 @@
 {% extends "rememberapp/_base.html" %}
+{% load static %}
 
 {% block title %}
     Places Remember: Сервис для хранения воспоминаний
@@ -8,21 +9,28 @@
     <div class="row justify-content-center d-flex align-items-center"
          style="height: 100vh;">
         <div class="col-12 text-center text-white mt-20">
-            <h1 class="display-4 text-primary mb-4 font-bold text-white">Ваш личный дневник
-                путешествий: сохраняйте воспоминания о каждом уголке мира!</h1>
-            <p class="lead mb-4 text-white">Наш сервис предлагает вам уникальную
+            <h1 class="display-4 text-primary mb-4 font-bold text-white">Ваш
+                личный дневник
+                путешествий: сохраняйте воспоминания о каждом уголке
+                мира!</h1>
+            <p class="lead mb-4 text-white">Наш сервис предлагает вам
+                уникальную
                 возможность сохранить ваши впечатления о каждом посещенном
-                месте. Выберите место на карте, добавьте название и комментарий
+                месте. Выберите место на карте, добавьте название и
+                комментарий
                 - и ваше впечатление будет сохранено в вашем личном дневнике
                 путешествий. Больше не нужно беспокоиться о том, что
-                воспоминания о ваших путешествиях со временем угаснут. С нашим
+                воспоминания о ваших путешествиях со временем угаснут. С
+                нашим
                 сервисом вы всегда сможете вернуться к своим воспоминаниям и
                 просмотреть полный список ваших путешествий.</p>
         </div>
         <div class="col-12 col-md-6">
-            <a class="btn btn-primary text-white w-50 mb-60 mx-auto d-block"
+            <a class="btn btn-primary text-white mb-60 mx-auto d-block"
+               style="width: 230px;"
                href="{% url 'social:begin' 'vk-oauth2' %}"><i
                     class="fab fa-vk font-bold"></i> Войти с помощью VK</a>
         </div>
     </div>
+
 {% endblock content %}
