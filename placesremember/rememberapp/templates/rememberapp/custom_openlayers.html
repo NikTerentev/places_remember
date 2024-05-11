@@ -1,0 +1,62 @@
+<div id="{{ id }}_map"></div>
+<input type="hidden" id="{{ id }}_input" name="location">
+
+<style>
+    #{{ id }}_map {
+        width: 100%;
+        height: 500px;
+    }
+
+    #{{ id }}_map .olControlAttribution {
+        bottom: 3px;
+    }
+</style>
+
+<script type="text/javascript">
+    const {{ id }}_map = new ol.Map({
+        target: '{{ id }}_map',
+        layers: [
+            new ol.layer.Tile({
+                source: new ol.source.TileJSON({
+                    url: 'https://api.maptiler.com/maps/basic-v2/tiles.json?key=qlW79kg1HzLzXulSEUn0',
+                    tileSize: 512,
+                })
+            })
+        ],
+        view: new ol.View({
+            center: [0, 0],
+            zoom: 1,
+        })
+    });
+
+    var {{ id }}_feature = new ol.Feature({
+        geometry: new ol.geom.Point(ol.proj.fromLonLat([0, 0])) // Убираем точку по умолчанию
+    });
+
+    var {{ id }}_vector = new ol.layer.Vector({
+        source: new ol.source.Vector({
+            features: [{{ id }}_feature]
+        })
+    });
+
+    {{ id }}_map.addLayer({{ id }}_vector);
+
+    var clicked = false; // Добавляем переменную для отслеживания клика
+
+    // Добавляем обработчик событий для перемещения курсора и выбора точки на карте
+    {{ id }}_map.on('click', function (evt) {
+        clicked = true; // Устанавливаем clicked в true при клике
+        var coord = ol.proj.transform(evt.coordinate, 'EPSG:3857', 'EPSG:4326'); // Преобразуем координаты
+        {{ id }}_feature.getGeometry().setCoordinates(ol.proj.fromLonLat(coord));
+        document.getElementById('{{ id }}_input').value = 'SRID=4326;POINT (' + coord[0] + ' ' + coord[1] + ')'; // Обновляем скрытое поле формы
+    });
+
+    // Добавляем обработчик событий для перемещения точки за курсором
+    {{ id }}_map.on('pointermove', function (evt) {
+        if (!clicked) { // Если не было клика, перемещаем точку за курсором
+            var coord = ol.proj.transform(evt.coordinate, 'EPSG:3857', 'EPSG:4326'); // Преобразуем координаты
+            {{ id }}_feature.getGeometry().setCoordinates(ol.proj.fromLonLat(coord));
+            document.getElementById('{{ id }}_input').value = 'SRID=4326;POINT (' + coord[0] + ' ' + coord[1] + ')'; // Обновляем скрытое поле формы
+        }
+    });
+</script>

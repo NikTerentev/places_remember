@@ -6,6 +6,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView
 
+from .forms import RememberForm
 from .models import Remember
 
 
@@ -22,9 +23,12 @@ def add_remember(request: HttpRequest) -> HttpResponse:
 
 class RememberCreateView(LoginRequiredMixin, CreateView):
     model = Remember
-    fields = ["title", "comment", "location"]
     success_url = reverse_lazy("remember-list")
 
+    def get_form_class(self) -> type[RememberForm]:
+        return RememberForm
+
     def form_valid(self, form: Form) -> HttpResponse:
+        print(form.instance.location)
         form.instance.user = self.request.user
         return super(RememberCreateView, self).form_valid(form)
