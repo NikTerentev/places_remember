@@ -11,6 +11,7 @@ RUN pip install --upgrade pip
 
 # update packages
 RUN apt update
+RUN apt install -y gdal-bin libpq-dev
 
 # create new user
 RUN useradd -rms /bin/bash mainuser && chmod 777 /opt /run

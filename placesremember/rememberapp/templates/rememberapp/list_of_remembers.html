@@ -18,6 +18,11 @@
         </div>
         <h1 class="display-4 text-center text-primary text-white font-bold my-4 mb-12">
             У вас ещё нет воспоминаний.</h1>
+        {% for remember in remembers %}
+            {{ remember.title }}
+            {{ remember.comment|truncatewords:30|linebreaks }}
+            {{ remember.location }}
+        {% endfor %}
         <button class="btn btn-success my-10"
                 onclick="location.href='{% url 'add-new-remember' %}'">Добавить
             воспоминание

@@ -20,14 +20,15 @@
             width: 100%;
         }
     </style>
+    {{ form.media }}
 </head>
 <header>
     <nav class="navbar navbar-dark bg-gray-900">
         <a class="navbar-brand text-xl font-bold text-white ms-3"
                 {% if user.is_authenticated %}
-           href="/remembers"
+           href="{% url 'remember-list' %}"
                 {% else %}
-           href="/"
+           href="{% url 'hello-page' %}"
                 {% endif %}
         >Places
             Remember</a>
@@ -37,7 +38,8 @@
                     <li class="nav-item text-white me-3">{{ user.first_name }} {{ user.last_name }}
                         <img style="display: inline-block;"
                              src="{{ user.profile.avatar }}"
-                             alt="Изображение профиля" class="border rounded-full"></li>
+                             alt="Изображение профиля"
+                             class="border rounded-full"></li>
                 {% endif %}
             </ul>
         </div>

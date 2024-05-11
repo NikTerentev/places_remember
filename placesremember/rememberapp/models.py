@@ -1,16 +1,18 @@
-from django.conf import settings
-from django.db import models
+from django.contrib.auth import get_user_model
+from django.contrib.gis.db import models
+
+User = get_user_model()
 
 
 class Remember(models.Model):
     user = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        related_name="remembers_created",
+        User,
         on_delete=models.CASCADE,
     )
     title = models.CharField(max_length=200)
     comment = models.TextField()
     created = models.DateField(auto_now_add=True)
+    location = models.PointField()
 
     class Meta:
         indexes = [

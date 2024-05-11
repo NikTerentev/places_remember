@@ -36,8 +36,11 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.gis",
     "social_django",
     "django_extensions",
+    "crispy_forms",
+    "crispy_tailwind",
     "rememberapp",
     "accounts",
 ]
@@ -77,7 +80,7 @@ WSGI_APPLICATION = "placesremember.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
+        "ENGINE": "django.contrib.gis.db.backends.postgis",
         "HOST": os.getenv("POSTGRES_HOST", "placesdb"),
         "PORT": os.getenv("POSTGRES_PORT", 5432),
         "USER": os.getenv("POSTGRES_USER", "postgres"),
@@ -163,3 +166,6 @@ LOGIN_REDIRECT_URL = "/remembers"
 LOGIN_URL = "/"
 
 LOGOUT_REDIRECT_URL = "/"
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
+CRISPY_TEMPLATE_PACK = "tailwind"

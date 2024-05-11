@@ -1,7 +1,8 @@
-# from django.contrib import admin
+from django.contrib.gis import admin
 
-# from .models import Remember
+from .models import Remember
 
-# @admin.register(Remember)
-# class RememberAdmin(admin.ModelAdmin):
-#    pass
+
+@admin.register(Remember)
+class RememberAdmin(admin.GISModelAdmin):
+    list_display = ("user", "title", "comment", "created", "location")
