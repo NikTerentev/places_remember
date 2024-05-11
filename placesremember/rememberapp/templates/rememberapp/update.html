@@ -2,7 +2,7 @@
 {% load tailwind_filters %}
 
 {% block title %}
-    Добавление нового воспоминания
+    Редактирование воспоминания
 {% endblock title %}
 
 {% block content %}
@@ -11,23 +11,20 @@
         body, h1, p, label {
             color: white;
         }
-
     </style>
 
     <script src="https://cdn.jsdelivr.net/npm/ol@v9.1.0/dist/ol.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v9.1.0/ol.css">
 
     <div class="text-white">
-        <h1 class="text-2xl my-4">Создание нового воспоминания</h1>
+        <h1 class="text-2xl my-4">Редактирование воспоминания</h1>
         <form method="POST" enctype="multipart/form-data" class="text-center">
             {% csrf_token %}
             {{ form|crispy }}
             <p>
                 <input class="px-8 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 hover:cursor-pointer"
-                       type="submit" value="Сохранить">
+                       type="submit" value="Сохранить изменения">
             </p>
         </form>
     </div>
-
-
 {% endblock content %}

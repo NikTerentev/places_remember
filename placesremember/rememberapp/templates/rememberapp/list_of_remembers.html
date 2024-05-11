@@ -16,12 +16,52 @@
                 </button>
             </form>
         </div>
-        <h1 class="display-4 text-center text-primary text-white font-bold my-4 mb-12">
-            У вас ещё нет воспоминаний.</h1>
         {% for remember in remembers %}
-            {{ remember.title }}
-            {{ remember.comment|truncatewords:30|linebreaks }}
+            <a href="{% url 'remember-update' remember.id %}">
+                {{ remember.title }}
+            </a>
+            {{ remember.comment|linebreaks }}
             {{ remember.location }}
+            <!-- Кнопка удаления -->
+            <button class="btn btn-danger" data-toggle="modal"
+                    data-target="#deleteModal{{ remember.id }}">
+                Удалить
+            </button>
+            <!-- Модальное окно подтверждения удаления -->
+            <div class="modal fade" id="deleteModal{{ remember.id }}"
+                 tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="deleteModalLabel">
+                                Подтвердите удаление</h5>
+                            <button type="button" class="close"
+                                    data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Вы уверены, что хотите удалить это воспоминание?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary"
+                                    data-dismiss="modal">Отмена
+                            </button>
+                            <form method="POST"
+                                  action="{% url 'remember-delete' remember.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger">
+                                    Удалить
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <h1 class="display-4 text-center text-primary text-white font-bold my-4 mb-12">
+                У вас ещё нет воспоминаний.</h1>
         {% endfor %}
         <button class="btn btn-success my-10"
                 onclick="location.href='{% url 'add-new-remember' %}'">Добавить
@@ -29,5 +69,7 @@
         </button>
 
     </div>
+    <!-- Подключаем jQuery и Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 {% endblock content %}
-

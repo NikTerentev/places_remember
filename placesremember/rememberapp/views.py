@@ -1,10 +1,8 @@
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms import Form
-from django.http import HttpRequest, HttpResponse
-from django.shortcuts import render
+from django.http import HttpResponse
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, ListView
+from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 
 from .forms import RememberForm
 from .models import Remember
@@ -16,11 +14,6 @@ class RememberListView(LoginRequiredMixin, ListView):
     template_name = "rememberapp/list_of_remembers.html"
 
 
-@login_required
-def add_remember(request: HttpRequest) -> HttpResponse:
-    return render(request, "rememberapp/add_new_remember.html", {})
-
-
 class RememberCreateView(LoginRequiredMixin, CreateView):
     model = Remember
     success_url = reverse_lazy("remember-list")
@@ -29,6 +22,21 @@ class RememberCreateView(LoginRequiredMixin, CreateView):
         return RememberForm
 
     def form_valid(self, form: Form) -> HttpResponse:
-        print(form.instance.location)
         form.instance.user = self.request.user
         return super(RememberCreateView, self).form_valid(form)
+
+
+class RememberUpdateView(LoginRequiredMixin, UpdateView):
+    model = Remember
+    fields = ["title", "comment", "location"]
+    template_name = "rememberapp/update.html"
+    success_url = reverse_lazy("remember-list")
+
+    def form_valid(self, form: Form) -> HttpResponse:
+        form.instance.user = self.request.user
+        return super(RememberUpdateView, self).form_valid(form)
+
+
+class RememberDeleteView(LoginRequiredMixin, DeleteView):
+    model = Remember
+    success_url = reverse_lazy("remember-list")
