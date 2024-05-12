@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.contrib.gis.db import models
+from django.urls import reverse
 
 User = get_user_model()
 
@@ -22,3 +23,6 @@ class Remember(models.Model):
 
     def __str__(self) -> str:
         return self.title
+
+    def get_absolute_url(self) -> str:
+        return reverse("remember-update", args=[self.id])

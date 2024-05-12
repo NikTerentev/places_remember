@@ -31,3 +31,6 @@ exclude = [
     'settings',
     'venv/'
 ]
+
+[tool.djlint]
+profile="django"

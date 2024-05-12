@@ -34,6 +34,3 @@ USER mainuser
 
 # listening on a specified port
 EXPOSE 8000
-
-# start the server
-# CMD ["python", "manage.py", "runserver_plus", "--cert-file", "cert.crt", "0.0.0.0:8000"]

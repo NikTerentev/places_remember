@@ -17,7 +17,7 @@
             </form>
         </div>
         {% for remember in remembers %}
-            <a href="{% url 'remember-update' remember.id %}">
+            <a href="{{ remember.get_absolute_url }}">
                 {{ remember.title }}
             </a>
             {{ remember.comment|linebreaks }}

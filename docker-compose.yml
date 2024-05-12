@@ -21,6 +21,7 @@ services:
       always
     volumes:
       - .:/code
+    # Add && ./placesremember/manage.py test rememberapp for tests
     command: >
       bash -c "./placesremember/manage.py makemigrations
       && ./placesremember/manage.py migrate
