@@ -23,9 +23,9 @@ services:
       - .:/code
     # Add && ./placesremember/manage.py test rememberapp for tests
     command: >
-      bash -c "./placesremember/manage.py makemigrations
-      && ./placesremember/manage.py migrate
-      && ./placesremember/manage.py add_admin
+      bash -c "python ./placesremember/manage.py makemigrations
+      && python ./placesremember/manage.py migrate
+      && python ./placesremember/manage.py add_admin
       && ./wait-for-it.sh placesdb:5432 -- uwsgi --ini ./config/uwsgi/uwsgi.ini"
   nginx:
     image: nginx:1.26.0
