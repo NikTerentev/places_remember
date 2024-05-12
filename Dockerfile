@@ -27,7 +27,6 @@ RUN pip install -r requirements.txt
 # copy the project files to the image directory
 COPY --chown=mainuser:mainuser . /code/
 
-RUN chmod +x ./placesremember/manage.py
 RUN chmod -R 777 /code
 
 # switch to the created user
