@@ -5,7 +5,7 @@
 {% endblock title %}
 
 {% block content %}
-    <div class="d-flex flex-column align-items-center vh-100">
+    <div class="d-flex flex-column align-items-center vh-100 text-white">
         <div class="d-flex justify-content-end w-100">
             <form method="POST" action="{% url 'logout' %}">
                 {% csrf_token %}
@@ -17,22 +17,41 @@
             </form>
         </div>
         {% for remember in remembers %}
-            <a href="{{ remember.get_absolute_url }}">
-                {{ remember.title }}
-            </a>
-            {{ remember.comment|linebreaks }}
-            {{ remember.location }}
-            <!-- Кнопка удаления -->
-            <button class="btn btn-danger" data-toggle="modal"
-                    data-target="#deleteModal{{ remember.id }}">
-                Удалить
-            </button>
+            <div class="card bg-gray-900 text-white mb-3 w-100">
+                <div class="card-body">
+                    <!-- Добавляем стили CSS -->
+                    <style>
+                        .title-link {
+                            color: aqua; /* делаем текст синим */
+                        }
+
+                        .title-link:hover {
+                            text-decoration: underline !important; /* добавляем подчеркивание при наведении */
+                        }
+                    </style>
+                    <a href="{{ remember.get_absolute_url }}"
+                       class="title-link text-decoration-none">
+                        <h5 class="card-title">{{ remember.title }}</h5>
+                    </a>
+                    <p class="card-text">{{ remember.comment|linebreaks }}</p>
+                    <p class="card-text">
+                        Долгота: {{ remember.location.x }}
+                        Широта: {{ remember.location.y }}
+                    </p>
+                    <!-- Кнопка удаления -->
+                    <button class="btn btn-danger float-right"
+                            data-toggle="modal"
+                            data-target="#deleteModal{{ remember.id }}">
+                        Удалить
+                    </button>
+                </div>
+            </div>
             <!-- Модальное окно подтверждения удаления -->
             <div class="modal fade" id="deleteModal{{ remember.id }}"
                  tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
                  aria-hidden="true">
                 <div class="modal-dialog" role="document">
-                    <div class="modal-content">
+                    <div class="modal-content bg-gray-900">
                         <div class="modal-header">
                             <h5 class="modal-title" id="deleteModalLabel">
                                 Подтвердите удаление</h5>

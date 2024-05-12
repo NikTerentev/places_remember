@@ -23,7 +23,7 @@
 
     <div class="text-white">
         <h1 class="text-2xl my-4">Редактирование воспоминания</h1>
-        <form method="POST" enctype="multipart/form-data" class="text-center">
+        <form method="POST" enctype="multipart/form-data" class="text-center" id="rememberForm">
             {% csrf_token %}
             {{ form|crispy }}
             <p>
@@ -32,4 +32,13 @@
             </p>
         </form>
     </div>
+
+    <script type="text/javascript">
+        document.getElementById('rememberForm').addEventListener('submit', function(event) {
+            var locationInput = document.getElementById('id_location_input');
+            if (!locationInput.value) {
+                locationInput.value = 'SRID=4326;POINT (' + initialLocation[0] + ' ' + initialLocation[1] + ')';
+            }
+        });
+    </script>
 {% endblock content %}
