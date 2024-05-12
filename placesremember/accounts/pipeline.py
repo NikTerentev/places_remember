@@ -12,6 +12,9 @@ def get_avatar(
     *args: Any,
     **kwargs: Any,
 ) -> None:
+    """
+    Function for getting a link to an avatar from a request
+    """
     url = None
 
     if backend.name == "vk-oauth2":

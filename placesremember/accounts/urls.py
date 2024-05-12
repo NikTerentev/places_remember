@@ -1,5 +1,5 @@
 from django.urls import path
 
-from .views import hello_page
+from .views import HelloPageView
 
-urlpatterns = [path("", hello_page, name="hello-page")]
+urlpatterns = [path("", HelloPageView.as_view(), name="hello-page")]

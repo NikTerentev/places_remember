@@ -6,10 +6,13 @@ from django.db import models
 
 
 class Profile(models.Model):
+    """
+    User profile model, stores a link to the avatar
+    """
+
     user: User = models.OneToOneField(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE
     )
-    # profile_photo = models.ImageField(upload_to='profile_pics')
     avatar: Optional[str] = models.CharField(
         max_length=1000, null=True, blank=True
     )
