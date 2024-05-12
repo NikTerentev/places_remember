@@ -16,6 +16,11 @@
     <script src="https://cdn.jsdelivr.net/npm/ol@v9.1.0/dist/ol.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v9.1.0/ol.css">
 
+    <script type="text/javascript">
+        var initialLocation = {{ location|safe }};
+        var initialCoordinates = ol.proj.fromLonLat([parseFloat(initialLocation[0]), parseFloat(initialLocation[1])]);
+    </script>
+
     <div class="text-white">
         <h1 class="text-2xl my-4">Редактирование воспоминания</h1>
         <form method="POST" enctype="multipart/form-data" class="text-center">

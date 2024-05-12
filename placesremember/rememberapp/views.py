@@ -1,3 +1,5 @@
+from typing import Any, Dict
+
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms import Form
 from django.http import HttpResponse
@@ -28,9 +30,21 @@ class RememberCreateView(LoginRequiredMixin, CreateView):
 
 class RememberUpdateView(LoginRequiredMixin, UpdateView):
     model = Remember
-    fields = ["title", "comment", "location"]
+    form_class = RememberForm
     template_name = "rememberapp/update.html"
     success_url = reverse_lazy("remember-list")
+
+    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        remember = self.get_object()
+        # Извлекаем координаты из поля location
+        context["location"] = (
+            str(remember.location)
+            .replace("SRID=4326;POINT (", "")
+            .replace(")", "")
+            .split()
+        )
+        return context
 
     def form_valid(self, form: Form) -> HttpResponse:
         form.instance.user = self.request.user

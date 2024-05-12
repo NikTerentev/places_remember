@@ -24,13 +24,13 @@
             })
         ],
         view: new ol.View({
-            center: ol.proj.fromLonLat([37.618423, 55.751244]),
-            zoom: 5,
+            center: typeof initialCoordinates !== 'undefined' ? initialCoordinates : ol.proj.fromLonLat([37.618423, 55.751244]),
+            zoom: 17,
         })
     });
 
     var {{ id }}_feature = new ol.Feature({
-        geometry: new ol.geom.Point(ol.proj.fromLonLat([0, 0])) // Убираем точку по умолчанию
+        geometry: new ol.geom.Point(typeof initialCoordinates !== 'undefined' ? initialCoordinates : ol.proj.fromLonLat([0, 0]))
     });
 
     var {{ id }}_vector = new ol.layer.Vector({
@@ -53,7 +53,7 @@
 
     // Добавляем обработчик событий для перемещения точки за курсором
     {{ id }}_map.on('pointermove', function (evt) {
-        if (!clicked) { // Если не было клика, перемещаем точку за курсором
+        if (!clicked && typeof initialCoordinates === 'undefined') { // Если не было клика, перемещаем точку за курсором
             var coord = ol.proj.transform(evt.coordinate, 'EPSG:3857', 'EPSG:4326'); // Преобразуем координаты
             {{ id }}_feature.getGeometry().setCoordinates(ol.proj.fromLonLat(coord));
             document.getElementById('{{ id }}_input').value = 'SRID=4326;POINT (' + coord[0] + ' ' + coord[1] + ')'; // Обновляем скрытое поле формы
