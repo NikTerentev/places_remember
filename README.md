@@ -6,6 +6,14 @@ A Django web application that allows people to store their impressions of places
 
 ## Run project 
 
+Before starting the container build, use the following command
+
+`chmod 0777 placesremember/`
+
+Also add to `/etc/hosts`
+
+`127.0.0.1       placesremember.com      www.placesremember.com`
+
 To run a project via Docker, use the following commands:
 
 `docker build -t places_remember_docker .`
