@@ -7,9 +7,8 @@
 
 {% block content %}
     <style>
-        /* Делаем все текстовые элементы белыми */
-        body, h1, p, label {
-            color: white;
+        label {
+            color: white !important;
         }
     </style>
 
@@ -22,7 +21,7 @@
     </script>
 
     <div class="text-white">
-        <h1 class="text-2xl my-4">Редактирование воспоминания</h1>
+        <h1 class="text-2xl my-2">Редактирование воспоминания</h1>
         <form method="POST" enctype="multipart/form-data" class="text-center" id="rememberForm">
             {% csrf_token %}
             {{ form|crispy }}

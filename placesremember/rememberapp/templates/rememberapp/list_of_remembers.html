@@ -79,8 +79,8 @@
                 </div>
             </div>
         {% empty %}
-            <h1 class="display-4 text-center text-primary text-white font-bold my-4 mb-12">
-                У вас ещё нет воспоминаний.</h1>
+            <h1 class="display-4 text-center text-primary text-white font-bold my-2 mb-12">
+                У вас нет ни одного воспоминания</h1>
         {% endfor %}
         <button class="btn btn-success my-10"
                 onclick="location.href='{% url 'add-new-remember' %}'">Добавить

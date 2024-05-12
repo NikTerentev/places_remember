@@ -37,7 +37,6 @@ class RememberUpdateView(LoginRequiredMixin, UpdateView):
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
         remember = self.get_object()
-        # Извлекаем координаты из поля location
         context["location"] = (
             str(remember.location)
             .replace("SRID=4326;POINT (", "")
